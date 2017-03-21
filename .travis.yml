@@ -1,26 +1,21 @@
 dist: trusty
 sudo: false
-
 branches:
   only:
-    - master
-
+  - master
 env:
-  # This environment variable tells Terraform not to prompt for input. This is
-  # not required, but if we make a mistake, the Travis builder will hang waiting
-  # for user input, tieing up unnecessary resources.
+  matrix:
   - TF_INPUT=false
-
-# Install terraform
+  global:
+  - secure: Cl7g2KiBhgJRIp2n3Gu4COkmpll/k2L9NS4AFSEFO1m0t/wOq3AqDgq0Nwj2LAPOnZ1DGIaW9g0Kov9IFhJ+S+toLVnfYL1ewOqnPC5dFb6gIdryfjS559uMr1svDt+Mhtt425QnR/JBUEvOrKfqcDgTaAwBbZZYPhn2nrevUI1cWvYWxLFglC4FFKmd70Y8q/y1yXSoekAwzAfRBe9D057imd1KTvcgNKjsdLABH4/Jam6v7x0/r1TS2T2r8bNRYCeLu5E3lT8sEWLOEVOIGKmAACCE64na5boruLA2h1M3hmX3CkBcQbdtbyDxVsP0BS6+xzmBup8O4rBHcPeSY6IQFhLFE4qLwMUiAI9mdUErEMkfen4gafMH1Gx9Oy3Zpwjj6sKfeSAVmwIGvYDP0iXsw1akZoo4kAd+Mu+2qHrlTIvgSYdXLAdxBlGT1x3IxS1bQS91DeH4ceq9jMUdsOYgt738GceUdhOvKphWqMiR8GKMqSls2DQ04WBHobEi6reGgQyeKlyuk6cuZYfiqweWZnYrg1DQUyQzYd5F7O6maow7dci1vy7Erg1XCiBneQjfJu3qyCuiR1CbVvbcH7AFOrgkkRnIsJQdITpJ59fKIrGGIZwp8/Okrc8dss76TZ+vJm3f7Mnbm7puDqe3cm5b79otu0MvQrsASpmC1Hg=
+  - secure: aC7GwvHEM7p8jOaBgqPYfUJK03BXmhIaU8wv32YiLqyzTR67HqKL3EzgeUqTN2fykWx8gsJUjlGfWDnl//aiGJ5L0UKhMuJX8hnPywLWGRa8iDJ1+wI2/fdOjMbJiqLj0YhzdkqdeCcKIiqcNgh2qDoezsUSAfUf1nCXRsfsM48FbTW+M2K7Hji1NMUKEf3TnbiB1E05ZrRbwozzSih8y0Lz8wRVobobb0fStDF6l7bTazy8qSY/q5zTpVunssyzYhi9WBMR+nVQtHplM8l400Kq94UrYp1yO90B1iZWArYofAwoJmppjEqcSFYMVNTGIR05IvZTw3qLBwX2yAtaB67kkqREJcTbCTITVjT+YIW+XNRvPRL1J15dIK02z2ERMybFGvMewB5dojhxCzrJQ7bdv1wqouUEPkC0trhUkuSFbyIoiCtV1pTcx0A5YPvs1cA+KvXV3uAUpqM+bXmWTnQPify4WQT6rsWM7qqWzNCMmiGI+92A7GhFwb1wh7qurV24WpZLwaCLazVDSne6cS42KvIDpQBYDtbwh3rmkI042v9j5O+LqzUnHCqRQ28O2Z/Ph68zl0CajneMJPe7y/2WH4dgXF8HKerWlF7hCwkEzabo/Wf//4sNyQZexFgL+SOq/qz1G19tLofLcegX2tC6zsF4gw5jpaQA+Ns1dac=
 before_install:
-  - curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip
-  - unzip /tmp/terraform.zip -d /tmp
-  - mkdir ~/bin
-  - mv /tmp/terraform ~/bin
-  - export PATH="~/bin:$PATH"
-
+- curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip
+- unzip /tmp/terraform.zip -d /tmp
+- mkdir ~/bin
+- mv /tmp/terraform ~/bin
+- export PATH="~/bin:$PATH"
 script: terraform plan ./terraform
-
 deploy:
 - provider: script
   skip_cleanup: true
